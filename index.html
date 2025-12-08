@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dreamy Evening – Your Name</title>
+
+  <style>
+    /* ---------- Base reset ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: #fdf7ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background:
+        radial-gradient(circle at top, #fbe4c3 0, #1f1510 48%, #050309 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Subtle vignette / ambience */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -10%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
+      mix-blend-mode: multiply;
+      opacity: 0.85;
+    }
+
+    /* Floating particles (fireflies / distant sparks) */
+    .fireflies {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .fireflies span {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffd890 0, rgba(255, 216, 144, 0) 70%);
+      opacity: 0.25;
+      animation: float 14s linear infinite;
+      filter: blur(0.4px);
+    }
+
+    /* Place them around with nth-child */
+    .fireflies span:nth-child(1) { top: 10%; left: 15%; animation-duration: 18s; }
+    .fireflies span:nth-child(2) { top: 20%; right: 12%; animation-duration: 16s; }
+    .fireflies span:nth-child(3) { top: 50%; left: 5%; animation-duration: 20s; }
+    .fireflies span:nth-child(4) { bottom: 18%; left: 30%; animation-duration: 22s; }
+    .fireflies span:nth-child(5) { bottom: 8%; right: 25%; animation-duration: 19s; }
+    .fireflies span:nth-child(6) { top: 35%; right: 45%; animation-duration: 24s; }
+    .fireflies span:nth-child(7) { bottom: 30%; right: 5%; animation-duration: 21s; }
+    .fireflies span:nth-child(8) { top: 5%; right: 50%; animation-duration: 23s; }
+
+    @keyframes float {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.5;
+      }
+      50% {
+        transform: translate3d(20px, -40px, 0) scale(1.2);
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0;
+      }
+      100% {
+        transform: translate3d(-10px, -80px, 0) scale(0.9);
+        opacity: 0;
+      }
+    }
+
+    /* ---------- Main scene card ---------- */
+    .scene {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .board {
+      position: relative;
+      padding: 2.8rem 2.4rem 2.2rem;
+      border-radius: 1.5rem;
+      background:
+        linear-gradient(135deg, #3f2617 0%, #2a160e 40%, #2b1b12 100%);
+      box-shadow:
+        0 35px 80px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    /* Wood grain hint */
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(
+          115deg,
+          rgba(255, 255, 255, 0.04) 0,
+          rgba(255, 255, 255, 0.02) 16%,
+          rgba(0, 0, 0, 0) 16%,
+          rgba(0, 0, 0, 0) 50%,
+          rgba(255, 255, 255, 0.03) 50%,
+          rgba(255, 255, 255, 0.01) 100%
+        );
+      mix-blend-mode: soft-light;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .board-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 2.4rem;
+      align-items: center;
+    }
+
+    /* ---------- Text content ---------- */
+    h1 {
+      font-size: clamp(2.2rem, 2.8vw, 2.8rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      color: #ffe9c5;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255, 224, 190, 0.8);
+      margin-bottom: 1.4rem;
+    }
+
+    .description {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(252, 243, 229, 0.9);
+      max-width: 36rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .now {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(255, 214, 170, 0.7);
+      margin-bottom: 0.4rem;
+    }
+
+    .now-box {
+      border-radius: 0.9rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(255, 230, 192, 0.18);
+      background: radial-gradient(
+        circle at top left,
+        rgba(255, 234, 195, 0.18) 0,
+        rgba(42, 26, 17, 0.9) 60%
+      );
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(255, 245, 228, 0.9);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Links row */
+    .links {
+      margin-top: 1.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .pill-link {
+      font-size: 0.8rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 220, 180, 0.45);
+      color: #ffe7c9;
+      background: radial-gradient(
+        circle at top left,
+        rgba(255, 236, 203, 0.32),
+        rgba(38, 21, 14, 0.9)
+      );
+      backdrop-filter: blur(4px);
+      transition: transform 160ms ease-out, box-shadow 160ms ease-out,
+        border-color 160ms ease-out, background 160ms ease-out;
+    }
+
+    .pill-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+      border-color: rgba(255, 243, 214, 0.9);
+      background: radial-gradient(
+        circle at top left,
+        rgba(255, 243, 214, 0.8),
+        rgba(36, 19, 13, 0.95)
+      );
+    }
+
+    /* ---------- Candle + ambience ---------- */
+    .candle-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+
+    .candle-holder {
+      width: 150px;
+      height: 150px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #f5d8a8 0, #2b1811 55%, #120808 100%);
+      box-shadow:
+        0 0 60px rgba(255, 209, 153, 0.35),
+        inset 0 0 18px rgba(0, 0, 0, 0.7);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .candle {
+      position: relative;
+      width: 26px;
+      height: 60px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #f8e1c2 0, #e0c2a1 55%, #d4a984 100%);
+      box-shadow:
+        0 0 22px rgba(255, 232, 192, 0.75),
+        0 0 40px rgba(255, 214, 157, 0.8);
+    }
+
+    /* Wax top */
+    .candle::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #fff3dd 0, #e4c7a2 60%);
+      box-shadow: 0 4px 10px rgba(25, 10, 2, 0.5);
+    }
+
+    /* Flame */
+    .flame {
+      position: absolute;
+      bottom: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 36px;
+      border-radius: 50% 50% 40% 40%;
+      background: radial-gradient(circle at 50% 20%, #fff7d7 0, #ffd07a 45%, #ff8f3b 80%, rgba(255, 143, 59, 0) 100%);
+      filter: blur(0.2px);
+      animation: flicker 0.14s infinite alternate;
+      transform-origin: center bottom;
+    }
+
+    /* Glow around candle */
+    .candle-glow {
+      position: absolute;
+      inset: -40%;
+      border-radius: inherit;
+      background: radial-gradient(circle, rgba(255, 214, 155, 0.38) 0, transparent 70%);
+      opacity: 0.8;
+      filter: blur(2px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    @keyframes flicker {
+      0% {
+        transform: translate(-50%, 0) scale(1, 1.04) rotate(-1.5deg);
+        opacity: 0.95;
+      }
+      100% {
+        transform: translate(-51%, -1px) scale(0.96, 1.1) rotate(1.3deg);
+        opacity: 0.8;
+      }
+    }
+
+    .candle-caption {
+      font-size: 0.8rem;
+      text-align: center;
+      color: rgba(255, 235, 208, 0.78);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 720px) {
+      body {
+        padding: 1.5rem;
+      }
+
+      .board {
+        padding: 2.1rem 1.6rem 2rem;
+      }
+
+      .board-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .candle-area {
+        order: -1;
+        margin-bottom: 0.8rem;
+      }
+
+      h1 {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- subtle sparks / “fireworks in the distance” -->
+  <div class="fireflies">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <main class="scene">
+    <section class="board">
+      <div class="board-inner">
+        <!-- Left: text content -->
+        <div>
+          <h1>Dreamy Evening</h1>
+          <p class="subtitle">a small corner of the internet</p>
+
+          <p class="description">
+            hi, i’m <strong>your name</strong>. this is my slow, candle-lit
+            space on the web — for projects, fragments, and whatever i’m
+            quietly obsessed with after dark.
+          </p>
+
+          <p class="now">right now</p>
+          <div class="now-box">
+            i’m thinking about cozy interfaces, small creative tools, and
+            how to make the internet feel a bit more like sitting by a window
+            with a warm drink while fireworks happen far away.
+          </div>
+
+          <div class="links">
+            <a class="pill-link" href="#" target="_blank" rel="noreferrer">
+              projects
+            </a>
+            <a class="pill-link" href="#" target="_blank" rel="noreferrer">
+              writing
+            </a>
+            <a class="pill-link" href="#" target="_blank" rel="noreferrer">
+              contact
+            </a>
+            <!-- add / remove links as you like -->
+          </div>
+        </div>
+
+        <!-- Right: candle & ambience -->
+        <div class="candle-area">
+          <div class="candle-holder">
+            <div class="candle">
+              <div class="flame"></div>
+              <div class="candle-glow"></div>
+            </div>
+          </div>
+          <div class="candle-caption">
+            stay as long as you like.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
