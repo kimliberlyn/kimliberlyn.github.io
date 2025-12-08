@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dreamy Evening – Your Name</title>
+  <title>Kim Liberlyn – Evening Space</title>
 
   <style>
-    /* ---------- Base reset ---------- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -21,129 +20,247 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 2.5rem 1.5rem;
       background:
-        radial-gradient(circle at top, #fbe4c3 0, #1f1510 48%, #050309 100%);
-      overflow: hidden;
+        radial-gradient(circle at top, #40306f 0, #120b26 45%, #05030b 100%);
       position: relative;
+      overflow: hidden;
     }
 
-    /* Subtle vignette / ambience */
     body::before {
+      /* purple haze overlay */
       content: "";
       position: fixed;
-      inset: -10%;
-      pointer-events: none;
+      inset: -15%;
       background:
-        radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%);
-      mix-blend-mode: multiply;
-      opacity: 0.85;
+        radial-gradient(circle at top right, rgba(255, 163, 218, 0.25), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(255, 210, 151, 0.25), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      pointer-events: none;
     }
 
-    /* Floating particles (fireflies / distant sparks) */
-    .fireflies {
+    /* Floating particles */
+    .particles {
       position: fixed;
       inset: 0;
-      overflow: hidden;
       pointer-events: none;
       z-index: 0;
+      overflow: hidden;
     }
 
-    .fireflies span {
+    .particles span {
       position: absolute;
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: radial-gradient(circle, #ffd890 0, rgba(255, 216, 144, 0) 70%);
-      opacity: 0.25;
-      animation: float 14s linear infinite;
-      filter: blur(0.4px);
+      background: radial-gradient(circle, #ffe7c5 0, rgba(255, 231, 197, 0) 70%);
+      opacity: 0.22;
+      filter: blur(0.5px);
+      animation: drift 16s linear infinite;
     }
 
-    /* Place them around with nth-child */
-    .fireflies span:nth-child(1) { top: 10%; left: 15%; animation-duration: 18s; }
-    .fireflies span:nth-child(2) { top: 20%; right: 12%; animation-duration: 16s; }
-    .fireflies span:nth-child(3) { top: 50%; left: 5%; animation-duration: 20s; }
-    .fireflies span:nth-child(4) { bottom: 18%; left: 30%; animation-duration: 22s; }
-    .fireflies span:nth-child(5) { bottom: 8%; right: 25%; animation-duration: 19s; }
-    .fireflies span:nth-child(6) { top: 35%; right: 45%; animation-duration: 24s; }
-    .fireflies span:nth-child(7) { bottom: 30%; right: 5%; animation-duration: 21s; }
-    .fireflies span:nth-child(8) { top: 5%; right: 50%; animation-duration: 23s; }
+    .particles span:nth-child(1) { top: 10%; left: 18%; animation-duration: 18s; }
+    .particles span:nth-child(2) { top: 24%; right: 16%; animation-duration: 21s; }
+    .particles span:nth-child(3) { top: 52%; left: 6%; animation-duration: 23s; }
+    .particles span:nth-child(4) { bottom: 20%; left: 28%; animation-duration: 19s; }
+    .particles span:nth-child(5) { bottom: 12%; right: 20%; animation-duration: 24s; }
+    .particles span:nth-child(6) { top: 6%; right: 45%; animation-duration: 20s; }
+    .particles span:nth-child(7) { bottom: 32%; right: 8%; animation-duration: 22s; }
+    .particles span:nth-child(8) { top: 40%; right: 32%; animation-duration: 26s; }
 
-    @keyframes float {
+    @keyframes drift {
       0% {
-        transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(0.9);
         opacity: 0;
       }
       10% {
-        opacity: 0.5;
+        opacity: 0.4;
       }
       50% {
-        transform: translate3d(20px, -40px, 0) scale(1.2);
-        opacity: 0.8;
+        transform: translate3d(24px, -36px, 0) scale(1.2);
+        opacity: 0.85;
       }
       90% {
         opacity: 0;
       }
       100% {
-        transform: translate3d(-10px, -80px, 0) scale(0.9);
+        transform: translate3d(-10px, -82px, 0) scale(1);
         opacity: 0;
       }
     }
 
-    /* ---------- Main scene card ---------- */
     .scene {
       position: relative;
       z-index: 1;
-      max-width: 800px;
       width: 100%;
+      max-width: 980px;
     }
 
     .board {
       position: relative;
-      padding: 2.8rem 2.4rem 2.2rem;
-      border-radius: 1.5rem;
+      border-radius: 1.6rem;
+      padding: 2.4rem 2.6rem;
       background:
-        linear-gradient(135deg, #3f2617 0%, #2a160e 40%, #2b1b12 100%);
+        linear-gradient(135deg, #4a2e1f 0%, #3a2418 35%, #2a1810 100%);
       box-shadow:
-        0 35px 80px rgba(0, 0, 0, 0.7),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        0 36px 80px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.03);
       overflow: hidden;
     }
 
-    /* Wood grain hint */
+    /* Wood grain overlay */
     .board::before {
       content: "";
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(
-          115deg,
-          rgba(255, 255, 255, 0.04) 0,
-          rgba(255, 255, 255, 0.02) 16%,
-          rgba(0, 0, 0, 0) 16%,
-          rgba(0, 0, 0, 0) 50%,
-          rgba(255, 255, 255, 0.03) 50%,
-          rgba(255, 255, 255, 0.01) 100%
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.16) 0,
+          rgba(0, 0, 0, 0.16) 1px,
+          rgba(0, 0, 0, 0) 3px,
+          rgba(0, 0, 0, 0) 8px
         );
       mix-blend-mode: soft-light;
-      opacity: 0.5;
+      opacity: 0.45;
       pointer-events: none;
+    }
+
+    /* String lights */
+    .string-lights {
+      position: absolute;
+      top: 0.5rem;
+      left: -2rem;
+      right: -2rem;
+      height: 110px;
+      pointer-events: none;
+    }
+
+    .string-line {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border-top: 2px solid rgba(255, 227, 197, 0.6);
+      transform: translateY(18px);
+      opacity: 0.7;
+    }
+
+    .bulb {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #ffe7c5 0, #f6c685 55%, rgba(0, 0, 0, 0) 100%);
+      box-shadow:
+        0 0 12px rgba(255, 226, 191, 0.8),
+        0 0 22px rgba(255, 238, 210, 0.65);
+      animation: twinkle 2.4s ease-in-out infinite alternate;
+    }
+
+    .bulb:nth-child(2) { top: 32px; left: 10%; animation-delay: 0.1s; }
+    .bulb:nth-child(3) { top: 26px; left: 26%; animation-delay: 0.7s; }
+    .bulb:nth-child(4) { top: 22px; left: 43%; animation-delay: 0.3s; }
+    .bulb:nth-child(5) { top: 24px; left: 61%; animation-delay: 1.1s; }
+    .bulb:nth-child(6) { top: 30px; left: 78%; animation-delay: 0.5s; }
+    .bulb:nth-child(7) { top: 38px; left: 90%; animation-delay: 1.4s; }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0.45;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
     }
 
     .board-inner {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
-      gap: 2.4rem;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.7fr);
+      gap: 2.2rem;
       align-items: center;
+      margin-top: 1rem;
     }
 
-    /* ---------- Text content ---------- */
-    h1 {
-      font-size: clamp(2.2rem, 2.8vw, 2.8rem);
+    /* Left: avatar / profile */
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .avatar-ring {
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 20% 10%, #ffe9c7, #f9c48c, #f192b8, #5f4cd7);
+      padding: 5px;
+      box-shadow:
+        0 0 32px rgba(255, 217, 187, 0.8),
+        0 0 60px rgba(107, 86, 255, 0.6);
+      position: relative;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent 55%),
+        url("https://via.placeholder.com/400") center/cover no-repeat;
+      /* ↑ replace with your own image URL later */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .avatar-inner::after {
+      /* subtle vignette */
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+    }
+
+    .avatar-initial {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      font-weight: 600;
       letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff4dd;
+      text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+
+    .avatar-caption {
+      text-align: center;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(255, 237, 214, 0.9);
+    }
+
+    .avatar-caption span {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 231, 198, 0.8);
+    }
+
+    /* Right: text content */
+    h1 {
+      font-size: clamp(2.2rem, 2.7vw, 2.8rem);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       margin-bottom: 0.75rem;
       color: #ffe9c5;
@@ -153,47 +270,49 @@
       font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: rgba(255, 224, 190, 0.8);
-      margin-bottom: 1.4rem;
+      color: rgba(255, 224, 190, 0.9);
+      margin-bottom: 1.5rem;
     }
 
     .description {
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: rgba(252, 243, 229, 0.9);
-      max-width: 36rem;
+      font-size: 0.98rem;
+      line-height: 1.9;
+      color: rgba(252, 243, 229, 0.95);
       margin-bottom: 1.4rem;
+      max-width: 34rem;
     }
 
-    .now {
-      font-size: 0.85rem;
+    .description em {
+      font-style: italic;
+      opacity: 0.9;
+    }
+
+    .now-label {
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: rgba(255, 214, 170, 0.7);
-      margin-bottom: 0.4rem;
+      letter-spacing: 0.2em;
+      color: rgba(255, 214, 170, 0.85);
+      margin-bottom: 0.45rem;
     }
 
     .now-box {
       border-radius: 0.9rem;
-      padding: 0.9rem 1rem;
-      border: 1px solid rgba(255, 230, 192, 0.18);
-      background: radial-gradient(
-        circle at top left,
-        rgba(255, 234, 195, 0.18) 0,
-        rgba(42, 26, 17, 0.9) 60%
-      );
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: rgba(255, 245, 228, 0.9);
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(255, 230, 192, 0.24);
+      background:
+        radial-gradient(circle at top left, rgba(255, 234, 195, 0.24) 0, rgba(42, 26, 17, 0.9) 60%);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: rgba(255, 245, 228, 0.96);
       backdrop-filter: blur(8px);
+      margin-bottom: 1.4rem;
     }
 
-    /* Links row */
     .links {
-      margin-top: 1.6rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.75rem;
+      margin-top: 0.3rem;
     }
 
     .pill-link {
@@ -201,176 +320,121 @@
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      padding: 0.45rem 0.95rem;
+      padding: 0.47rem 0.98rem;
       border-radius: 999px;
-      border: 1px solid rgba(255, 220, 180, 0.45);
+      border: 1px solid rgba(255, 220, 180, 0.5);
       color: #ffe7c9;
-      background: radial-gradient(
-        circle at top left,
-        rgba(255, 236, 203, 0.32),
-        rgba(38, 21, 14, 0.9)
-      );
+      background:
+        radial-gradient(circle at top left, rgba(255, 236, 203, 0.35), rgba(38, 21, 14, 0.96));
       backdrop-filter: blur(4px);
-      transition: transform 160ms ease-out, box-shadow 160ms ease-out,
-        border-color 160ms ease-out, background 160ms ease-out;
+      transition: transform 150ms ease-out, box-shadow 150ms ease-out,
+        border-color 150ms ease-out, background 150ms ease-out;
     }
 
     .pill-link:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
-      border-color: rgba(255, 243, 214, 0.9);
-      background: radial-gradient(
-        circle at top left,
-        rgba(255, 243, 214, 0.8),
-        rgba(36, 19, 13, 0.95)
-      );
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+      border-color: rgba(255, 243, 214, 0.95);
+      background:
+        radial-gradient(circle at top left, rgba(255, 243, 214, 0.9), rgba(30, 16, 11, 0.98));
     }
 
-    /* ---------- Candle + ambience ---------- */
-    .candle-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.2rem;
-    }
-
-    .candle-holder {
-      width: 150px;
-      height: 150px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #f5d8a8 0, #2b1811 55%, #120808 100%);
-      box-shadow:
-        0 0 60px rgba(255, 209, 153, 0.35),
-        inset 0 0 18px rgba(0, 0, 0, 0.7);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .candle {
-      position: relative;
-      width: 26px;
-      height: 60px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, #f8e1c2 0, #e0c2a1 55%, #d4a984 100%);
-      box-shadow:
-        0 0 22px rgba(255, 232, 192, 0.75),
-        0 0 40px rgba(255, 214, 157, 0.8);
-    }
-
-    /* Wax top */
-    .candle::before {
-      content: "";
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 32px;
-      height: 18px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #fff3dd 0, #e4c7a2 60%);
-      box-shadow: 0 4px 10px rgba(25, 10, 2, 0.5);
-    }
-
-    /* Flame */
-    .flame {
-      position: absolute;
-      bottom: 64px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 18px;
-      height: 36px;
-      border-radius: 50% 50% 40% 40%;
-      background: radial-gradient(circle at 50% 20%, #fff7d7 0, #ffd07a 45%, #ff8f3b 80%, rgba(255, 143, 59, 0) 100%);
-      filter: blur(0.2px);
-      animation: flicker 0.14s infinite alternate;
-      transform-origin: center bottom;
-    }
-
-    /* Glow around candle */
-    .candle-glow {
-      position: absolute;
-      inset: -40%;
-      border-radius: inherit;
-      background: radial-gradient(circle, rgba(255, 214, 155, 0.38) 0, transparent 70%);
-      opacity: 0.8;
-      filter: blur(2px);
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    @keyframes flicker {
-      0% {
-        transform: translate(-50%, 0) scale(1, 1.04) rotate(-1.5deg);
-        opacity: 0.95;
-      }
-      100% {
-        transform: translate(-51%, -1px) scale(0.96, 1.1) rotate(1.3deg);
-        opacity: 0.8;
-      }
-    }
-
-    .candle-caption {
-      font-size: 0.8rem;
-      text-align: center;
-      color: rgba(255, 235, 208, 0.78);
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    /* ---------- Responsive ---------- */
-    @media (max-width: 720px) {
+    /* Responsive */
+    @media (max-width: 840px) {
       body {
-        padding: 1.5rem;
+        padding: 1.8rem 1.3rem;
       }
 
       .board {
-        padding: 2.1rem 1.6rem 2rem;
+        padding: 2.1rem 1.7rem;
       }
 
       .board-inner {
         grid-template-columns: minmax(0, 1fr);
+        gap: 1.8rem;
       }
 
-      .candle-area {
+      .left-column {
         order: -1;
-        margin-bottom: 0.8rem;
+      }
+
+      .avatar-ring {
+        width: 160px;
+        height: 160px;
       }
 
       h1 {
-        font-size: 1.9rem;
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 1.4rem 1rem;
+      }
+      .board {
+        padding: 1.8rem 1.4rem 1.7rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- subtle sparks / “fireworks in the distance” -->
-  <div class="fireflies">
+  <div class="particles">
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
   </div>
 
   <main class="scene">
     <section class="board">
+      <div class="string-lights">
+        <div class="string-line"></div>
+        <div class="bulb"></div>
+        <div class="bulb"></div>
+        <div class="bulb"></div>
+        <div class="bulb"></div>
+        <div class="bulb"></div>
+        <div class="bulb"></div>
+      </div>
+
       <div class="board-inner">
-        <!-- Left: text content -->
+        <!-- LEFT: avatar / photo -->
+        <div class="left-column">
+          <div class="avatar-ring">
+            <div class="avatar-inner">
+              <!--
+                Option 1: keep the initial
+                Option 2: replace with an <img> tag, e.g.:
+
+                <img src="your-photo-url.jpg" alt="Kim Liberlyn" style="width:100%;height:100%;object-fit:cover;" />
+              -->
+              <span class="avatar-initial">K</span>
+            </div>
+          </div>
+
+          <div class="avatar-caption">
+            <span>kim liberlyn</span>
+            little evening corner for projects, school things, and
+            everything i’m quietly excited about.
+          </div>
+        </div>
+
+        <!-- RIGHT: text and links -->
         <div>
-          <h1>Dreamy Evening</h1>
-          <p class="subtitle">a small corner of the internet</p>
+          <h1>Dreamy Evening Space</h1>
+          <p class="subtitle">wood, lights & a bit of fireworks</p>
 
           <p class="description">
-            hi, i’m <strong>your name</strong>. this is my slow, candle-lit
-            space on the web — for projects, fragments, and whatever i’m
-            quietly obsessed with after dark.
+            hi, i’m kim — a student who likes building tiny cozy things on
+            the internet. this page is a soft landing: part portfolio,
+            part scrapbook, part <em>“come sit under the fireworks with me
+            for a second”</em>.
           </p>
 
-          <p class="now">right now</p>
+          <div class="now-label">right now</div>
           <div class="now-box">
-            i’m thinking about cozy interfaces, small creative tools, and
-            how to make the internet feel a bit more like sitting by a window
-            with a warm drink while fireworks happen far away.
+            figuring out how to balance school, extracurricular chaos,
+            and making cool projects that still feel warm and personal.
+            also: listening to way too many late-night playlists.
           </div>
 
           <div class="links">
@@ -378,25 +442,14 @@
               projects
             </a>
             <a class="pill-link" href="#" target="_blank" rel="noreferrer">
-              writing
+              resume
+            </a>
+            <a class="pill-link" href="#" target="_blank" rel="noreferrer">
+              extracurriculars
             </a>
             <a class="pill-link" href="#" target="_blank" rel="noreferrer">
               contact
             </a>
-            <!-- add / remove links as you like -->
-          </div>
-        </div>
-
-        <!-- Right: candle & ambience -->
-        <div class="candle-area">
-          <div class="candle-holder">
-            <div class="candle">
-              <div class="flame"></div>
-              <div class="candle-glow"></div>
-            </div>
-          </div>
-          <div class="candle-caption">
-            stay as long as you like.
           </div>
         </div>
       </div>
@@ -404,3 +457,4 @@
   </main>
 </body>
 </html>
+
