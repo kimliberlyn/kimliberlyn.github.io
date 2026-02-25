@@ -16,9 +16,8 @@ body { background:#03020a; color:var(--white); font-family:'Cormorant Garamond',
 body::before { content:''; position:fixed; inset:0; z-index:2; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:0.032; animation:grain .8s steps(2) infinite; }
 @keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(-2px,3px)} 50%{transform:translate(3px,-2px)} 75%{transform:translate(-1px,2px)} }
 
-#deer { position:fixed; right:18%; top:3.5rem; z-index:99; pointer-events:none; opacity:0.18; animation:deerBreathe 5s ease-in-out infinite; }
-@keyframes deerBreathe { 0%,100%{opacity:0.13;transform:translateY(0)} 50%{opacity:0.18;transform:translateY(-4px)} }
-
+  50%{opacity:0.32;transform:translateY(-6px)}
+}
 /* NAV */
 nav { position:fixed; top:0; width:100%; z-index:100; padding:1.5rem 4rem; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(to bottom,rgba(3,2,10,.88),transparent); backdrop-filter:blur(2px); }
 .nav-logo { font-family:'Playfair Display',serif; font-size:1.1rem; letter-spacing:.22em; color:var(--white); }
@@ -143,33 +142,13 @@ footer { position:relative; z-index:3; padding:2rem 4rem; border-top:1px solid r
 @media(max-width:900px){
   nav{padding:1.5rem 2rem} section{padding:6rem 2rem} #hero{padding:0 2rem} #contact{padding:4rem 2rem}
   .about-grid{grid-template-columns:1fr} .ec-grid{grid-template-columns:1fr 1fr} .projects-grid{grid-template-columns:1fr}
-  footer{flex-direction:column;gap:1rem;text-align:center} #deer{display:none}
+  footer{flex-direction:column;gap:1rem;text-align:center}
 }
 @media(max-width:600px){ .nav-links{display:none} .hero-name{font-size:3rem} .ec-grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
 
-<!-- Wire deer illustration -->
-<svg id="deer" width="260" height="300" viewBox="0 0 260 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="dg"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-  <g transform="scale(-1,1) translate(-260,0)" filter="url(#dg)">
-    <path d="M108 52 C104 40 96 28 90 16M104 44 C98 34 92 26 84 22M108 52 C106 38 112 26 116 14M109 46 C113 36 118 30 124 24" stroke="#f0e0a0" stroke-width="2" stroke-linecap="round"/>
-    <path d="M148 52 C152 40 160 28 166 16M152 44 C158 34 164 26 172 22M148 52 C150 38 144 26 140 14M147 46 C143 36 138 30 132 24" stroke="#f0e0a0" stroke-width="2" stroke-linecap="round"/>
-    <path d="M118 78 C113 66 110 60 108 52M140 78 C145 66 148 60 148 52" stroke="#f0e0a0" stroke-width="2.2" stroke-linecap="round"/>
-    <ellipse cx="129" cy="88" rx="22" ry="17" stroke="#f0e0a0" stroke-width="2.2" fill="none"/>
-    <circle cx="120" cy="85" r="2.5" fill="#f0e0a0"/>
-    <path d="M110 82 C102 74 100 64 106 60 C111 64 113 74 110 82Z" stroke="#f0e0a0" stroke-width="1.8" fill="none"/>
-    <path d="M148 82 C156 74 158 64 152 60 C147 64 145 74 148 82Z" stroke="#f0e0a0" stroke-width="1.8" fill="none"/>
-    <ellipse cx="129" cy="175" rx="52" ry="60" stroke="#f0e0a0" stroke-width="2.2" fill="none"/>
-    <path d="M116 104 C110 128 100 148 96 165M142 104 C148 128 160 148 162 165" stroke="#f0e0a0" stroke-width="2" stroke-linecap="round"/>
-    <path d="M100 228 C96 242 93 256 91 272M114 230 C115 245 115 260 116 276M148 228 C146 244 145 258 144 275M162 225 C163 241 164 256 166 272" stroke="#f0e0a0" stroke-width="2.2" stroke-linecap="round"/>
-    <circle cx="95" cy="162" r="2" fill="#fffbe0" opacity="0.9"/><circle cx="138" cy="155" r="2.5" fill="#fffbe0" opacity="0.95"/>
-    <circle cx="108" cy="180" r="2" fill="#fffbe0" opacity="0.9"/><circle cx="152" cy="178" r="2.2" fill="#fffbe0" opacity="0.88"/>
-  </g>
-</svg>
 
 <canvas id="sky"></canvas>
 <div id="scroll-dark"></div>
@@ -201,7 +180,7 @@ footer { position:relative; z-index:3; padding:2rem 4rem; border-top:1px solid r
       </div>
       <div class="shine-wrap">
         <canvas></canvas>
-        <a href="mailto:kimli@example.com" class="btn-secondary">Send an email</a>
+        <a href="/cdn-cgi/l/email-protection#6a01030706032a0f120b071a060f44090507" class="btn-secondary">Send an email</a>
       </div>
     </div>
   </div>
@@ -416,7 +395,7 @@ footer { position:relative; z-index:3; padding:2rem 4rem; border-top:1px solid r
   <span class="footer-copy">Kimli Nguyen</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // Scroll darkening + nav highlight
 const darkOverlay = document.getElementById('scroll-dark');
 const navLinks = document.querySelectorAll('.nav-links a');
@@ -535,56 +514,164 @@ window.addEventListener('resize', resize);
 
 const palette = [[232,228,245],[205,190,240],[220,205,255],[165,205,255],[255,228,190],[255,255,255]];
 const stars = [];
-for (let i = 0; i < 350; i++) {
+for (let i = 0; i < 380; i++) {
   const c = palette[Math.floor(rand(0, palette.length))];
-  const period = rand(240, 540);
-  stars.push({ x:rand(0,1), y:rand(0,.9), r:rand(.1,1.1), base:rand(.08,.5), peak:rand(.4,.85), period, offset:rand(0,period), cr:c[0], cg:c[1], cb:c[2], drift:rand(-.00002,.00002) });
+  const period = rand(200, 520);
+  const canSparkle = Math.random() < 0.20;
+  stars.push({
+    x: rand(0,1), y: rand(0,.9),
+    r: rand(.10, 1.0),
+    base: rand(.04,.28), peak: rand(.3,.65),
+    period, offset: rand(0, period),
+    cr: c[0], cg: c[1], cb: c[2],
+    drift: rand(-.00002,.00002),
+    canSparkle,
+    sparkleTimer: canSparkle ? rand(0, 400) : -1,
+    sparklePeriod: canSparkle ? rand(280, 700) : -1,
+    sparkleLife: 0
+  });
+}
+
+function drawSparkle(x, y, size, alpha) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  const grd = ctx.createRadialGradient(x, y, 0, x, y, size * 2.5);
+  grd.addColorStop(0, 'rgba(255,255,255,0.9)');
+  grd.addColorStop(1, 'rgba(200,180,255,0)');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.arc(x, y, size * 2.5, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.95)';
+  ctx.lineWidth = 0.8; ctx.lineCap = 'round';
+  const long = size * 4.5, short = size * 2.2;
+  ctx.beginPath(); ctx.moveTo(x - long, y); ctx.lineTo(x + long, y); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x, y - long); ctx.lineTo(x, y + long); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x - short, y - short); ctx.lineTo(x + short, y + short); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x + short, y - short); ctx.lineTo(x - short, y + short); ctx.stroke();
+  ctx.restore();
 }
 
 const shooters = [];
-setInterval(() => {
-  if (Math.random() < .5) shooters.push({ x:rand(.05,.85), y:rand(.02,.4), len:rand(65,140), speed:rand(.007,.015), angle:rand(22,48)*Math.PI/180, life:1, decay:rand(.013,.024) });
-}, 3400);
+function spawnShooter() {
+  const angle = rand(20, 50) * Math.PI / 180;
+  const speed = rand(.006, .014);
+  shooters.push({
+    x: rand(.02, .80), y: rand(.01, .35),
+    angle, speed,
+    len: rand(80, 180),
+    life: 1,
+    decay: rand(.008, .018),
+    width: rand(1.0, 2.2),
+    // trail particles
+    particles: []
+  });
+}
+setInterval(() => { if (Math.random() < .6) spawnShooter(); }, 3000);
 
 let T = 0;
 function render() {
   T++;
   ctx.clearRect(0, 0, W, H);
 
-  // Background gradient
   const bg = ctx.createLinearGradient(0, 0, 0, H);
   bg.addColorStop(0, '#03020a'); bg.addColorStop(.35, '#0d0820');
   bg.addColorStop(.6, '#150c32'); bg.addColorStop(1, '#080406');
   ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
   ctx.drawImage(nebOff, 0, 0);
 
-  // Stars
+  // Stars with sparkle flashes
   stars.forEach(s => {
     s.x += s.drift;
     if (s.x > 1.04) s.x = -0.04;
     if (s.x < -0.04) s.x = 1.04;
     const phase = ((T + s.offset) % s.period) / s.period;
-    const alpha = s.base + (s.peak - s.base) * (Math.sin(phase * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+    let alpha = s.base + (s.peak - s.base) * (Math.sin(phase * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+    const sx = s.x * W, sy = s.y * H;
+    if (s.canSparkle) {
+      s.sparkleTimer--;
+      if (s.sparkleTimer <= 0 && s.sparkleLife === 0) {
+        s.sparkleLife = rand(14, 26);
+        s.sparkleTimer = s.sparklePeriod + rand(-60, 60);
+      }
+    }
+    if (s.sparkleLife > 0) {
+      const t = s.sparkleLife / 20;
+      const fa = t > 0.7 ? (1 - t) / 0.3 : t < 0.2 ? t / 0.2 : 1.0;
+      drawSparkle(sx, sy, s.r + 0.2, fa * 0.70);
+      alpha = Math.min(1, alpha + fa * 0.5);
+      s.sparkleLife--;
+    }
     ctx.globalAlpha = alpha;
     ctx.fillStyle = `rgb(${s.cr},${s.cg},${s.cb})`;
-    ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(sx, sy, s.r, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 1;
   });
-  ctx.globalAlpha = 1;
 
-  // Shooting stars
+  // Realistic shooting stars
   for (let i = shooters.length - 1; i >= 0; i--) {
     const sh = shooters[i];
     sh.x += Math.cos(sh.angle) * sh.speed;
     sh.y += Math.sin(sh.angle) * sh.speed;
     sh.life -= sh.decay;
     if (sh.life <= 0 || sh.x > 1.1 || sh.y > 1) { shooters.splice(i, 1); continue; }
+
     const sx = sh.x * W, sy = sh.y * H;
-    const ex = sx - Math.cos(sh.angle) * sh.len, ey = sy - Math.sin(sh.angle) * sh.len;
-    const g = ctx.createLinearGradient(ex, ey, sx, sy);
-    g.addColorStop(0, 'rgba(210,200,255,0)');
-    g.addColorStop(1, `rgba(255,255,255,${sh.life * .65})`);
-    ctx.save(); ctx.strokeStyle = g; ctx.lineWidth = sh.life * 1.5; ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(sx, sy); ctx.stroke(); ctx.restore();
+    const ca = Math.cos(sh.angle), sa = Math.sin(sh.angle);
+
+    // spawn small trail particles at head
+    if (Math.random() < 0.5) {
+      sh.particles.push({
+        x: sx, y: sy,
+        vx: (-ca * rand(0.2,1.0) + rand(-.4,.4)),
+        vy: (-sa * rand(0.2,1.0) + rand(-.4,.4)),
+        life: rand(0.3, 0.7), decay: rand(0.04, 0.09),
+        r: rand(0.4, 1.1)
+      });
+    }
+
+    // draw main tail — layered for glow effect
+    const ex = sx - ca * sh.len * sh.life, ey = sy - sa * sh.len * sh.life;
+
+    // outer soft glow tail
+    const g1 = ctx.createLinearGradient(ex, ey, sx, sy);
+    g1.addColorStop(0, 'rgba(200,185,255,0)');
+    g1.addColorStop(0.5, `rgba(220,210,255,${sh.life * .12})`);
+    g1.addColorStop(1, `rgba(255,252,240,${sh.life * .35})`);
+    ctx.save();
+    ctx.strokeStyle = g1; ctx.lineWidth = sh.width * sh.life * 4; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(sx, sy); ctx.stroke();
+
+    // bright inner core
+    const g2 = ctx.createLinearGradient(ex, ey, sx, sy);
+    g2.addColorStop(0, 'rgba(220,210,255,0)');
+    g2.addColorStop(0.4, `rgba(240,235,255,${sh.life * .5})`);
+    g2.addColorStop(1, `rgba(255,255,255,${sh.life * .95})`);
+    ctx.strokeStyle = g2; ctx.lineWidth = sh.width * sh.life * 1.2;
+    ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(sx, sy); ctx.stroke();
+    ctx.restore();
+
+    // draw head glow
+    const hg = ctx.createRadialGradient(sx, sy, 0, sx, sy, sh.life * 6);
+    hg.addColorStop(0, `rgba(255,255,255,${sh.life * 0.95})`);
+    hg.addColorStop(0.3, `rgba(255,248,220,${sh.life * 0.6})`);
+    hg.addColorStop(1, 'rgba(220,200,255,0)');
+    ctx.save(); ctx.fillStyle = hg;
+    ctx.beginPath(); ctx.arc(sx, sy, sh.life * 6, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+
+    // sparkle cross at head
+    drawSparkle(sx, sy, sh.life * 1.4, sh.life * 0.85);
+
+    // draw + update trail particles
+    for (let j = sh.particles.length - 1; j >= 0; j--) {
+      const p = sh.particles[j];
+      p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+      if (p.life <= 0) { sh.particles.splice(j, 1); continue; }
+      ctx.save();
+      ctx.globalAlpha = p.life * 0.6;
+      ctx.fillStyle = `rgba(255,248,220,1)`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
   }
 
   // Vignette
