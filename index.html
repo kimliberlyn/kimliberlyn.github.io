@@ -181,26 +181,34 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
   
   .preview-container { 
     aspect-ratio: 1 / 1.4; 
-    overflow-y: auto; /* Enable scrolling on the container */
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden; /* Hide overflow of the iframe container */
+    background: #fff;
   }
   
-  /* Slides Scale Logic */
+  /* Slides Scale Logic: Aiming for ~40% scale to show wide content */
   .preview-container.is-slides iframe {
-    width: 250%; /* Scale up so 1/2.5 = 40% zoom, making horizontal fit */
-    height: 1000%; 
+    width: 250%; /* 1 / 0.4 = 2.5 */
+    height: 100vh; /* Allow some depth */
     transform: scale(0.4); 
-    transform-origin: 0 0;
-    pointer-events: auto;
+    transform-origin: top left;
+    border: none;
   }
   
-  /* Doc Scale Logic (Project 6) */
+  /* Doc Scale Logic: Aiming for ~25% scale for text heavy doc */
   .preview-container.is-doc iframe {
-    width: 400%; /* Scale up more for text documents */
-    height: 2000%; 
+    width: 400%; /* 1 / 0.25 = 4.0 */
+    height: 200vh; 
     transform: scale(0.25); 
-    transform-origin: 0 0;
-    pointer-events: auto;
+    transform-origin: top left;
+    border: none;
+  }
+
+  /* Make sure links are easy to hit on mobile */
+  .preview-overlay-link {
+    bottom: 10px;
+    right: 10px;
+    padding: 12px 20px;
+    font-size: 1rem;
   }
   
   .ec-card { flex: 1 1 100%; min-width: 0; }
@@ -338,8 +346,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-outcome">🏆 1st Place Overall · 2026</p>
       </div>
       <div class="preview-container is-slides">
-        <iframe src="files/edalw26.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/edalw26.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
+        <iframe src="files/edalw26.pdf#view=FitH&navpanes=0&toolbar=0"></iframe>
+        <a href="files/edalw26.pdf" target="_blank" class="preview-overlay-link">View Full PDF</a>
       </div>
     </div>
 
@@ -351,8 +359,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-outcome">4th Place Overall · 2026</p>
       </div>
       <div class="preview-container is-slides">
-        <iframe src="files/mss26.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/mss26.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
+        <iframe src="files/mss26.pdf#view=FitH&navpanes=0&toolbar=0"></iframe>
+        <a href="files/mss26.pdf" target="_blank" class="preview-overlay-link">View Full PDF</a>
       </div>
     </div>
 
@@ -364,8 +372,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-outcome">✦ Delegate · 2026</p>
       </div>
       <div class="preview-container is-slides">
-        <iframe src="files/pcc2026.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/pcc2026.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
+        <iframe src="files/pcc2026.pdf#view=FitH&navpanes=0&toolbar=0"></iframe>
+        <a href="files/pcc2026.pdf" target="_blank" class="preview-overlay-link">View Full PDF</a>
       </div>
     </div>
 
@@ -377,8 +385,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-outcome">🏆 3rd Place Overall · 2025</p>
       </div>
       <div class="preview-container is-slides">
-        <iframe src="files/edamss2025.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/edamss2025.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
+        <iframe src="files/edamss2025.pdf#view=FitH&navpanes=0&toolbar=0"></iframe>
+        <a href="files/edamss2025.pdf" target="_blank" class="preview-overlay-link">View Full PDF</a>
       </div>
     </div>
 
@@ -390,8 +398,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-outcome">🏆 Top 24 / Semi-Finalist · 2025</p>
       </div>
       <div class="preview-container is-slides">
-        <iframe src="files/bmo2025.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/bmo2025.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
+        <iframe src="files/bmo2025.pdf#view=FitH&navpanes=0&toolbar=0"></iframe>
+        <a href="files/bmo2025.pdf" target="_blank" class="preview-overlay-link">View Full PDF</a>
       </div>
     </div>
 
@@ -403,8 +411,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-outcome">✦ Tools: R, Excel · 2025</p>
       </div>
       <div class="preview-container is-doc">
-        <iframe src="files/4089.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/4089.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
+        <iframe src="files/4089.pdf#view=FitH&navpanes=0&toolbar=0"></iframe>
+        <a href="files/4089.pdf" target="_blank" class="preview-overlay-link">View Full PDF</a>
       </div>
     </div>
   </div>
