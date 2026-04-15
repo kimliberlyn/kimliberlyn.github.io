@@ -96,7 +96,6 @@ section { padding:4rem; position:relative; }
 .profile-frame { width:220px; height:280px; position:relative; border:1px solid var(--border); overflow:hidden; background:var(--card-bg); margin:0 auto 2rem; box-shadow: var(--shadow); }
 .profile-frame img { width:100%; height:100%; object-fit:cover; display:block; }
 .about-text p { margin-bottom: 1rem; font-size: 1.15rem; }
-.about-text strong { color:var(--heading); font-weight:700; }
 
 /* EXPERIENCE TIMELINE */
 .timeline { display:flex; flex-direction:column; align-items:center; gap:4.5rem; }
@@ -108,58 +107,18 @@ section { padding:4rem; position:relative; }
 .exp-company { font-family:'Times New Roman',serif; font-weight:600; font-size: 1.1rem; }
 .exp-date { font-size: 0.9rem; opacity: 0.7; }
 
-/* EXTRACURRICULAR GRID - AUTO CENTER */
-.ec-grid { 
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+/* EXTRACURRICULAR GRID */
+.ec-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 1200px; margin: 0 auto; }
+.ec-card { flex: 0 1 calc(33.333% - 2rem); min-width: 320px; border:1px solid var(--border); background:var(--card-bg); padding:2.5rem; position:relative; backdrop-filter:blur(10px); transition:all .4s ease; box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: center; text-align: center; }
 
-.ec-card { 
-  flex: 0 1 calc(33.333% - 2rem);
-  min-width: 320px;
-  border:1px solid var(--border); 
-  background:var(--card-bg); 
-  padding:2.5rem; 
-  position:relative; 
-  backdrop-filter:blur(10px); 
-  transition:all .4s ease;
-  box-shadow: var(--shadow);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* PROJECTS GRID - 2 PER LINE */
-.projects-grid { 
-  display: grid; 
-  gap: 2.5rem; 
-  grid-template-columns: repeat(2, 1fr); 
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.project-card { 
-  border:1px solid var(--border); 
-  background:var(--card-bg); 
-  padding:2.5rem; 
-  position:relative; 
-  backdrop-filter:blur(10px); 
-  transition:all .4s ease;
-  box-shadow: var(--shadow);
-  display: flex; 
-  flex-direction: column; 
-  gap: 1.5rem; 
-}
+/* PROJECTS GRID */
+.projects-grid { display: grid; gap: 2.5rem; grid-template-columns: repeat(2, 1fr); max-width: 1400px; margin: 0 auto; }
+.project-card { border:1px solid var(--border); background:var(--card-bg); padding:2.5rem; position:relative; backdrop-filter:blur(10px); transition:all .4s ease; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 1.5rem; }
 
 /* PROJECT PREVIEW */
 .preview-container {
   width: 100%;
-  height: 380px;
+  height: 280px; /* Reduced height for a more "rectangle vibe" */
   background: #f8fafc;
   border: 1px solid var(--border);
   position: relative;
@@ -185,7 +144,6 @@ section { padding:4rem; position:relative; }
   transition: opacity 0.2s;
   z-index: 10;
 }
-.preview-overlay-link:hover { opacity: 0.9; }
 
 .project-info { flex: 1; }
 .project-title { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:var(--heading); margin-bottom: 0.5rem; }
@@ -195,10 +153,6 @@ section { padding:4rem; position:relative; }
 /* CONTACT */
 #contact { padding:6rem 4rem; text-align:center; }
 .back-top-btn { display:inline-block; padding:.8rem 2rem; border:1px solid var(--heading); text-decoration:none; color:var(--heading); font-family:'Times New Roman', serif; margin-bottom: 3rem; transition: all 0.3s; }
-.back-top-btn:hover { background: var(--heading); color: var(--bg); }
-.contact-socials { display:flex; justify-content:center; gap:3rem; }
-.contact-socials a { color: var(--subtext); text-decoration: none; font-family: 'Times New Roman', serif; }
-.contact-socials a:hover { color: var(--heading); }
 
 footer { padding:3rem; border-top:1px solid var(--border); text-align:center; font-family:'Times New Roman', serif; font-size: 0.9rem; }
 
@@ -212,43 +166,26 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
 }
 
 @media(max-width:768px){
-  nav { padding: 1rem; height: auto; }
-  .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .nav-links a { font-size: 0.8rem; }
-  
-  .section-title { font-size: clamp(1.8rem, 8vw, 2.2rem); margin-bottom: 2rem; }
-  
+  nav { padding: 1rem; }
+  .nav-links { gap: 1rem; }
   section { padding: 4rem 1.2rem; }
-  #about { padding-top: 8rem; }
   
-  .profile-frame { width: 180px; height: 230px; }
-  
-  .exp-role { font-size: 1.3rem; }
-  .timeline { gap: 3.5rem; }
-
-  .project-card { padding: 1.5rem; }
-  .project-title { font-size: 1.3rem; }
-  .project-desc { min-height: auto; font-size: 1rem; }
-  
-  /* PREVIEW BOXES - MATCH LAPTOP VIBE */
+  /* THIS IS THE FIX FOR THE "PRE-ZOOMED OUT" RECTANGLE VIBE */
   .preview-container { 
-    height: 380px; /* Maintain height from desktop for a consistent vibe */
-  }
-  .preview-container iframe {
-    /* Reset scaling to match laptop behavior */
-    width: 100%;
-    height: 100%;
-    transform: none; 
-    pointer-events: auto;
+    height: 180px; /* Shortened to be more rectangular on mobile */
   }
   
-  .ec-card { flex: 1 1 100%; padding: 2rem 1.5rem; min-width: 0; }
-  .contact-socials { gap: 1.5rem; font-size: 0.9rem; }
-}
-
-@media(max-width:480px) {
-  .nav-links { gap: 0.8rem; }
-  .nav-links a { font-size: 0.75rem; }
+  .preview-container iframe {
+    /* We trick the phone into thinking the iframe is huge (like a laptop screen) */
+    width: 300%; 
+    height: 300%;
+    /* Then we shrink it down so the full width fits into the small box */
+    transform: scale(0.3333); 
+    transform-origin: 0 0;
+    /* This makes it look exactly like the desktop preview, just smaller */
+  }
+  
+  .ec-card { flex: 1 1 100%; min-width: 0; }
 }
 </style>
 </head>
@@ -356,26 +293,12 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
       <p style="font-family:'Times New Roman',serif; font-weight:600;">Finance Director</p>
       <p>Spearheaded budgets and reimbursements using Excel across all UNICEF events ranging from <strong>20–60</strong> participants.</p>
     </div>
-    <div class="ec-card">
-      <div class="logo-box" style="margin-bottom:1rem"><img src="pictures/swsa.jpg" alt="SWSA"></div>
-      <h3 class="project-title" style="font-size:1.4rem">Social Work Students Association</h3>
-      <p style="font-family:'Times New Roman',serif; font-weight:600;">Events Executive</p>
-      <p>Organized logistics, outreach to speakers/sponsors, and budgeting for workshops and panels.</p>
-    </div>
-    <div class="ec-card">
-      <div class="logo-box" style="margin-bottom:1rem"><img src="pictures/ellehacks.jpg" alt="Ellehacks"></div>
-      <h3 class="project-title" style="font-size:1.4rem">Ellehacks</h3>
-      <p style="font-family:'Times New Roman',serif; font-weight:600;">Logistics Executive</p>
-      <p>Focusing on scheduling and events for the 2024–25 team to optimize event flow.</p>
-    </div>
   </div>
 </section>
  
 <section id="projects">
   <h2 class="section-title">Case Competitions & <em>Projects</em></h2>
   <div class="projects-grid">
-
-    <!-- Project 1 -->
     <div class="project-card">
       <div class="project-info">
         <h3 class="project-title">Launch Weekend Pitch Competition</h3>
@@ -388,7 +311,6 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
       </div>
     </div>
 
-    <!-- Project 2 -->
     <div class="project-card">
       <div class="project-info">
         <h3 class="project-title">MSS x Redbull Marketing Case Competition</h3>
@@ -400,69 +322,11 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <a href="files/mss26.pdf" target="_blank" class="preview-overlay-link">View Project</a>
       </div>
     </div>
-
-    <!-- Project 3 -->
-    <div class="project-card">
-      <div class="project-info">
-        <h3 class="project-title">Policy Case Competition 2026</h3>
-        <p class="project-desc">Prepared solutions to the use of AI in municipalities for the Ministry of Municipal Affairs & Housing Ontario.</p>
-        <p class="project-outcome">✦ Delegate · 2026</p>
-      </div>
-      <div class="preview-container">
-        <iframe src="files/pcc2026.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/pcc2026.pdf" target="_blank" class="preview-overlay-link">View Project</a>
-      </div>
     </div>
-
-    <!-- Project 4 -->
-    <div class="project-card">
-      <div class="project-info">
-        <h3 class="project-title">EDA × NEXT Canada Marketing Strategies</h3>
-        <p class="project-desc">Developed a scalable branding strategy for The Green Collection's new line launch focusing on trust.</p>
-        <p class="project-outcome">🏆 3rd Place Overall · 2025</p>
-      </div>
-      <div class="preview-container">
-        <iframe src="files/edamss2025.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/edamss2025.pdf" target="_blank" class="preview-overlay-link">View Project</a>
-      </div>
-    </div>
-
-    <!-- Project 5 -->
-    <div class="project-card">
-      <div class="project-info">
-        <h3 class="project-title">BMO National Private Wealth Competition</h3>
-        <p class="project-desc">Collaborated to build a solution for Next-Gen professionals to manage wealth: outlined a 24-month plan.</p>
-        <p class="project-outcome">🏆 Top 24 / Semi-Finalist · 2025</p>
-      </div>
-      <div class="preview-container">
-        <iframe src="files/bmo2025.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/bmo2025.pdf" target="_blank" class="preview-overlay-link">View Project</a>
-      </div>
-    </div>
-
-    <!-- Project 6 -->
-    <div class="project-card">
-      <div class="project-info">
-        <h3 class="project-title">Estimating Ontario's Output Growth</h3>
-        <p class="project-desc">Projection for Ontario's potential output growth from 2026 to 2035 using R and Excel.</p>
-        <p class="project-outcome">✦ Tools: R, Excel · 2025</p>
-      </div>
-      <div class="preview-container">
-        <iframe src="files/4089.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
-        <a href="files/4089.pdf" target="_blank" class="preview-overlay-link">View Project</a>
-      </div>
-    </div>
- 
-  </div>
 </section>
  
 <section id="contact">
   <a href="#about" class="back-top-btn">Back to Top</a>
-  <div class="contact-socials">
-    <a href="https://www.linkedin.com/in/kimlinguyen/" target="_blank">LinkedIn</a>
-    <a href="https://kimliberlyn.com" target="_blank">Personal Website</a>
-    <a href="#">Resume</a>
-  </div>
 </section>
  
 </div>
@@ -477,25 +341,6 @@ window.addEventListener('mousemove', (e) => {
   glow.style.opacity = '1';
   glow.style.left = e.clientX + 'px';
   glow.style.top = e.clientY + 'px';
-});
-
-const navLinks = document.querySelectorAll('.nav-links a');
-const sections = document.querySelectorAll('section[id]');
-const navH = () => document.querySelector('nav').offsetHeight;
- 
-window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - navH() - 100) cur = s.id; });
-  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
-}, { passive: true });
- 
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
-    if (!t) return;
-    e.preventDefault();
-    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - navH() - 20, behavior: 'smooth' });
-  });
 });
 </script>
 </body>
