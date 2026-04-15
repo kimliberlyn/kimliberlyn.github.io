@@ -124,9 +124,6 @@ section { padding:4rem; position:relative; }
   position: relative;
   overflow: hidden;
   border-radius: 4px;
-  /* Ensure container itself can scroll if the scaled content overflows */
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
 }
 .preview-container iframe {
   width: 100%;
@@ -183,17 +180,27 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
   .section-title { font-size: 1.8rem; }
   
   .preview-container { 
-    aspect-ratio: 1 / 1.2; /* Taller on mobile to show more document length */
+    aspect-ratio: 1 / 1.4; 
+    overflow-y: auto; /* Enable scrolling on the container */
+    -webkit-overflow-scrolling: touch;
   }
   
-  .preview-container iframe {
-    /* More "zoomed out" scale (0.2) and much larger virtual width (500%) 
-       to ensure the browser renders the full document width comfortably */
-    width: 500%; 
-    height: 1200%; /* Height is large to ensure the full PDF can be scrolled */
-    transform: scale(0.2); 
+  /* Slides Scale Logic */
+  .preview-container.is-slides iframe {
+    width: 250%; /* Scale up so 1/2.5 = 40% zoom, making horizontal fit */
+    height: 1000%; 
+    transform: scale(0.4); 
     transform-origin: 0 0;
-    pointer-events: auto; /* Ensure user can interact with the scroll inside the frame */
+    pointer-events: auto;
+  }
+  
+  /* Doc Scale Logic (Project 6) */
+  .preview-container.is-doc iframe {
+    width: 400%; /* Scale up more for text documents */
+    height: 2000%; 
+    transform: scale(0.25); 
+    transform-origin: 0 0;
+    pointer-events: auto;
   }
   
   .ec-card { flex: 1 1 100%; min-width: 0; }
@@ -330,8 +337,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-desc">Identified a <strong>$900M</strong> market opportunity in the logistics/trucking industry through extensive competitor analysis.</p>
         <p class="project-outcome">🏆 1st Place Overall · 2026</p>
       </div>
-      <div class="preview-container">
-        <iframe src="files/edalw26.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+      <div class="preview-container is-slides">
+        <iframe src="files/edalw26.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
         <a href="files/edalw26.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
       </div>
     </div>
@@ -343,8 +350,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-desc">Developed a <strong>$49.8M</strong> strategy for Tim Hortons to strengthen connection with Canadians aged 18–30.</p>
         <p class="project-outcome">4th Place Overall · 2026</p>
       </div>
-      <div class="preview-container">
-        <iframe src="files/mss26.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+      <div class="preview-container is-slides">
+        <iframe src="files/mss26.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
         <a href="files/mss26.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
       </div>
     </div>
@@ -356,8 +363,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-desc">Prepared solutions to the use of AI in municipalities for the Ministry of Municipal Affairs & Housing Ontario.</p>
         <p class="project-outcome">✦ Delegate · 2026</p>
       </div>
-      <div class="preview-container">
-        <iframe src="files/pcc2026.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+      <div class="preview-container is-slides">
+        <iframe src="files/pcc2026.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
         <a href="files/pcc2026.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
       </div>
     </div>
@@ -369,8 +376,8 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-desc">Developed a scalable branding strategy for The Green Collection's new line launch focusing on trust.</p>
         <p class="project-outcome">🏆 3rd Place Overall · 2025</p>
       </div>
-      <div class="preview-container">
-        <iframe src="files/edamss2025.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+      <div class="preview-container is-slides">
+        <iframe src="files/edamss2025.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
         <a href="files/edamss2025.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
       </div>
     </div>
@@ -382,21 +389,21 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <p class="project-desc">Collaborated to build a solution for Next-Gen professionals to manage wealth: outlined a 24-month plan.</p>
         <p class="project-outcome">🏆 Top 24 / Semi-Finalist · 2025</p>
       </div>
-      <div class="preview-container">
-        <iframe src="files/bmo2025.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+      <div class="preview-container is-slides">
+        <iframe src="files/bmo2025.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
         <a href="files/bmo2025.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
       </div>
     </div>
 
-    <!-- Project 6 -->
+    <!-- Project 6 (THE DOC) -->
     <div class="project-card">
       <div class="project-info">
         <h3 class="project-title">Ontario's Output Growth</h3>
         <p class="project-desc">Projection for Ontario's potential output growth from 2026 to 2035 using R and Excel modeling.</p>
         <p class="project-outcome">✦ Tools: R, Excel · 2025</p>
       </div>
-      <div class="preview-container">
-        <iframe src="files/4089.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+      <div class="preview-container is-doc">
+        <iframe src="files/4089.pdf#view=FitH&toolbar=0&navpanes=0&scrollbar=0"></iframe>
         <a href="files/4089.pdf" target="_blank" class="preview-overlay-link">View Full Project</a>
       </div>
     </div>
