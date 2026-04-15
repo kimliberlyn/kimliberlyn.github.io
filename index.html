@@ -183,7 +183,7 @@ section { padding:4rem; position:relative; }
   font-size: 0.8rem;
   border-radius: 1px;
   transition: opacity 0.2s;
-  z-index: 5;
+  z-index: 10;
 }
 .preview-overlay-link:hover { opacity: 0.9; }
 
@@ -203,7 +203,7 @@ section { padding:4rem; position:relative; }
 footer { padding:3rem; border-top:1px solid var(--border); text-align:center; font-family:'Times New Roman', serif; font-size: 0.9rem; }
 
 /* --------------------------------- */
-/* MOBILE FRIENDLY OVERRIDES         */
+/* MOBILE OPTIMIZATIONS              */
 /* --------------------------------- */
 
 @media(max-width:1024px){
@@ -212,41 +212,37 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
 }
 
 @media(max-width:768px){
-  /* Adjust Navigation for touch */
   nav { padding: 1rem; height: auto; }
   .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
   .nav-links a { font-size: 0.8rem; }
   
-  /* Shrink headings */
   .section-title { font-size: clamp(1.8rem, 8vw, 2.2rem); margin-bottom: 2rem; }
   
-  /* Section Padding */
   section { padding: 4rem 1.2rem; }
   #about { padding-top: 8rem; }
   
-  /* Profile frame sizing */
   .profile-frame { width: 180px; height: 230px; }
   
-  /* Experience Adjustments */
   .exp-role { font-size: 1.3rem; }
   .timeline { gap: 3.5rem; }
 
-  /* Project Card Adjustments */
   .project-card { padding: 1.5rem; }
   .project-title { font-size: 1.3rem; }
   .project-desc { min-height: auto; font-size: 1rem; }
   
-  /* PREVIEW BOXES - ZOOMED OUT TRICK */
-  .preview-container { height: 320px; }
+  /* PREVIEW BOXES - MOBILE RECTANGLE + ZOOM OUT */
+  .preview-container { 
+    height: 200px; /* Shorter rectangle vibe for phone */
+  }
   .preview-container iframe {
-    width: 160%; /* Make iframe larger */
-    height: 160%;
-    transform: scale(0.625); /* Shrink it back to fit, effectively zooming out content */
+    width: 250%; /* Make internal content much wider */
+    height: 250%; /* Make internal content much taller */
+    transform: scale(0.4); /* Zoom out significantly to fit more content in the box */
     transform-origin: 0 0;
+    pointer-events: none; /* Avoid scroll hijacking while swiping through the page */
   }
   
   .ec-card { flex: 1 1 100%; padding: 2rem 1.5rem; min-width: 0; }
-  
   .contact-socials { gap: 1.5rem; font-size: 0.9rem; }
 }
 
