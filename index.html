@@ -118,7 +118,7 @@ section { padding:4rem; position:relative; }
 /* PROJECT PREVIEW */
 .preview-container {
   width: 100%;
-  height: 280px; /* Reduced height for a more "rectangle vibe" */
+  height: 280px;
   background: #f8fafc;
   border: 1px solid var(--border);
   position: relative;
@@ -153,6 +153,9 @@ section { padding:4rem; position:relative; }
 /* CONTACT */
 #contact { padding:6rem 4rem; text-align:center; }
 .back-top-btn { display:inline-block; padding:.8rem 2rem; border:1px solid var(--heading); text-decoration:none; color:var(--heading); font-family:'Times New Roman', serif; margin-bottom: 3rem; transition: all 0.3s; }
+.contact-socials { display:flex; justify-content:center; gap:3rem; }
+.contact-socials a { color: var(--subtext); text-decoration: none; font-family: 'Times New Roman', serif; }
+.contact-socials a:hover { color: var(--heading); }
 
 footer { padding:3rem; border-top:1px solid var(--border); text-align:center; font-family:'Times New Roman', serif; font-size: 0.9rem; }
 
@@ -167,25 +170,23 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
 
 @media(max-width:768px){
   nav { padding: 1rem; }
-  .nav-links { gap: 1rem; }
+  .nav-links { gap: 1rem; flex-wrap: wrap; justify-content: center; }
   section { padding: 4rem 1.2rem; }
   
-  /* THIS IS THE FIX FOR THE "PRE-ZOOMED OUT" RECTANGLE VIBE */
   .preview-container { 
-    height: 180px; /* Shortened to be more rectangular on mobile */
+    height: 180px; 
   }
   
   .preview-container iframe {
-    /* We trick the phone into thinking the iframe is huge (like a laptop screen) */
+    /* Critical fix: Force scale-down to match laptop rendering */
     width: 300%; 
     height: 300%;
-    /* Then we shrink it down so the full width fits into the small box */
     transform: scale(0.3333); 
     transform-origin: 0 0;
-    /* This makes it look exactly like the desktop preview, just smaller */
   }
   
   .ec-card { flex: 1 1 100%; min-width: 0; }
+  .contact-socials { gap: 1.5rem; }
 }
 </style>
 </head>
@@ -293,6 +294,18 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
       <p style="font-family:'Times New Roman',serif; font-weight:600;">Finance Director</p>
       <p>Spearheaded budgets and reimbursements using Excel across all UNICEF events ranging from <strong>20–60</strong> participants.</p>
     </div>
+    <div class="ec-card">
+      <div class="logo-box" style="margin-bottom:1rem"><img src="pictures/swsa.jpg" alt="SWSA"></div>
+      <h3 class="project-title" style="font-size:1.4rem">SWSA</h3>
+      <p style="font-family:'Times New Roman',serif; font-weight:600;">Events Executive</p>
+      <p>Organized logistics and budgeting for workshops and panels for the Social Work Students Association.</p>
+    </div>
+    <div class="ec-card">
+      <div class="logo-box" style="margin-bottom:1rem"><img src="pictures/ellehacks.jpg" alt="Ellehacks"></div>
+      <h3 class="project-title" style="font-size:1.4rem">Ellehacks</h3>
+      <p style="font-family:'Times New Roman',serif; font-weight:600;">Logistics Executive</p>
+      <p>Scheduling and managing event flow for the 2024–25 team to optimize participant experience.</p>
+    </div>
   </div>
 </section>
  
@@ -322,11 +335,64 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
         <a href="files/mss26.pdf" target="_blank" class="preview-overlay-link">View Project</a>
       </div>
     </div>
+
+    <div class="project-card">
+      <div class="project-info">
+        <h3 class="project-title">Policy Case Competition 2026</h3>
+        <p class="project-desc">Prepared solutions to the use of AI in municipalities for the Ministry of Municipal Affairs & Housing Ontario.</p>
+        <p class="project-outcome">✦ Delegate · 2026</p>
+      </div>
+      <div class="preview-container">
+        <iframe src="files/pcc2026.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+        <a href="files/pcc2026.pdf" target="_blank" class="preview-overlay-link">View Project</a>
+      </div>
     </div>
+
+    <div class="project-card">
+      <div class="project-info">
+        <h3 class="project-title">EDA × NEXT Canada Marketing</h3>
+        <p class="project-desc">Developed a scalable branding strategy for The Green Collection's new line launch focusing on trust.</p>
+        <p class="project-outcome">🏆 3rd Place Overall · 2025</p>
+      </div>
+      <div class="preview-container">
+        <iframe src="files/edamss2025.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+        <a href="files/edamss2025.pdf" target="_blank" class="preview-overlay-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-info">
+        <h3 class="project-title">BMO Private Wealth Competition</h3>
+        <p class="project-desc">Collaborated to build a solution for Next-Gen professionals to manage wealth: outlined a 24-month plan.</p>
+        <p class="project-outcome">🏆 Top 24 / Semi-Finalist · 2025</p>
+      </div>
+      <div class="preview-container">
+        <iframe src="files/bmo2025.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+        <a href="files/bmo2025.pdf" target="_blank" class="preview-overlay-link">View Project</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-info">
+        <h3 class="project-title">Ontario's Output Growth</h3>
+        <p class="project-desc">Projection for Ontario's potential output growth from 2026 to 2035 using R and Excel modeling.</p>
+        <p class="project-outcome">✦ Tools: R, Excel · 2025</p>
+      </div>
+      <div class="preview-container">
+        <iframe src="files/4089.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+        <a href="files/4089.pdf" target="_blank" class="preview-overlay-link">View Project</a>
+      </div>
+    </div>
+  </div>
 </section>
  
 <section id="contact">
   <a href="#about" class="back-top-btn">Back to Top</a>
+  <div class="contact-socials">
+    <a href="https://www.linkedin.com/in/kimlinguyen/" target="_blank">LinkedIn</a>
+    <a href="https://kimliberlyn.com" target="_blank">Personal Website</a>
+    <a href="#">Resume</a>
+  </div>
 </section>
  
 </div>
