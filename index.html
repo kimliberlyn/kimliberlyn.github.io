@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kimli Nguyen — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+/* REFINED DEPTH THEME */
+:root { 
+  --bg: #e0f2fe;        /* Base Light Blue */
+  --bg-glow: #bae6fd;   /* Slightly darker blue for depth blobs */
+  --heading: #0f172a;   /* Color 1 */
+  --subtext: #334155;   /* Color 2 */
+  --border: rgba(15, 23, 42, 0.1); 
+  --card-bg: rgba(255, 255, 255, 0.5);
+  --shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
+}
+ 
+body { 
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(203,92%,90%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(199,89%,85%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(195,95%,92%,1) 0, transparent 50%);
+  background-attachment: fixed;
+  color: var(--subtext); 
+  font-family: 'Cormorant Garamond', Georgia, serif; 
+  font-size: 18px; 
+  line-height: 1.7; 
+  overflow-x: hidden;
+}
+
+/* NOISE TEXTURE OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* BACKGROUND DECORATION */
+.bg-blob {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: var(--bg-glow);
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+  animation: float 20s infinite alternate ease-in-out;
+}
+.blob-1 { top: -10%; left: -10%; }
+.blob-2 { bottom: -10%; right: -10%; animation-delay: -5s; }
+
+@keyframes float {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(100px, 50px) scale(1.1); }
+}
+
+/* MOUSE GLOW */
+#mouse-glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* NAV */
+nav { position:fixed; top:0; width:100%; z-index:100; padding:1.5rem 4rem; display:flex; justify-content:center; align-items:center; background:rgba(224, 242, 254, 0.7); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a { font-family:'Times New Roman',Times,serif; font-size:.9rem; letter-spacing:.05em; color:var(--subtext); text-decoration:none; transition:color .3s; position:relative; }
+.nav-links a::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--heading); transition:width .3s; }
+.nav-links a:hover, .nav-links a.active { color:var(--heading); }
+.nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+ 
+/* LAYOUT */
+.page-wrap { position:relative; z-index: 2; }
+section { padding:4rem; position:relative; }
+.section-title { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; line-height:1.1; margin-bottom:3rem; color:var(--heading); text-align:center; }
+.section-title em { font-style:italic; }
+ 
+/* SHINE WRAPPER */
+.shine-wrap { position:relative; display:inline-block; }
+.shine-wrap canvas { position:absolute; inset:0; pointer-events:none; z-index:10; opacity:0; transition:opacity .3s; }
+.shine-wrap:hover canvas { opacity:1; }
+ 
+/* BUTTONS */
+.btn-primary, .back-top-btn { display:block; padding:.88rem 2.2rem; background:rgba(255,255,255,0.4); border:1px solid var(--heading); color:var(--heading); text-decoration:none; font-family:'Times New Roman',Times,serif; font-size:.9rem; letter-spacing:.05em; transition:all .3s; backdrop-filter:blur(4px); position:relative; z-index:1; }
+.btn-primary:hover, .back-top-btn:hover { background:var(--heading); color:var(--bg); transform: translateY(-2px); box-shadow: var(--shadow); }
+ 
+/* ABOUT */
+#about { padding:10rem 4rem 6rem; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.about-container { text-align:center; width:100%; display:flex; flex-direction:column; align-items:center; }
+.name-card { margin-bottom: 1.5rem; }
+.name-card h3 { font-family:'Playfair Display',serif; font-size:2.8rem; color:var(--heading); }
+.profile-frame { width:220px; height:280px; position:relative; border:1px solid var(--border); overflow:hidden; background:var(--card-bg); margin:0 auto 2rem; box-shadow: var(--shadow); transition: transform 0.3s; }
+.profile-frame:hover { transform: translateY(-5px); }
+.profile-frame img { width:100%; height:100%; object-fit:cover; display:block; }
+.profile-frame::before { content:''; position:absolute; top:8px; left:8px; right:8px; bottom:8px; border:1px solid var(--border); z-index:2; pointer-events:none; }
+.about-text { color:var(--subtext); font-weight:400; font-size:1.15rem; line-height:1.8; max-width:620px; margin:0 auto; text-align:center; }
+.about-text strong { color:var(--heading); font-weight:600; }
+ 
+/* EXPERIENCE */
+.timeline { display:flex; flex-direction:column; align-items:center; gap:4.5rem; }
+.exp-item { display:flex; flex-direction:column; align-items:center; text-align:center; width:100%; position:relative; }
+.exp-header { display:flex; flex-direction:column; align-items:center; gap:1.2rem; margin-bottom:1rem; }
+.logo-box { width:77px; height:77px; flex-shrink:0; border:1px solid var(--border); background:rgba(255,255,255,0.6); backdrop-filter: blur(4px); display:flex; align-items:center; justify-content:center; overflow:hidden; transition:all .3s; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05); }
+.logo-box:hover { border-color:var(--heading); transform: scale(1.05); box-shadow: var(--shadow); }
+.logo-box img { width:77px; height:77px; object-fit:cover; display:block; }
+.exp-title-col { display:flex; flex-direction:column; gap:.3rem; align-items:center; }
+.exp-role { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; line-height:1.1; color:var(--heading); }
+.exp-company { font-family:'Times New Roman',Times,serif; font-size:1rem; font-weight:600; color:var(--subtext); }
+.exp-date { font-family:'Times New Roman',Times,serif; font-size:.85rem; color:var(--subtext); opacity:0.8; }
+.exp-desc { color:var(--subtext); font-weight:400; font-size:1.1rem; line-height:1.7; max-width:600px; margin:0 auto; text-align:center; }
+ 
+/* CARDS (EC & PROJECTS) */
+.ec-grid, .projects-grid { display:grid; gap:1.5rem; }
+.ec-grid { grid-template-columns:repeat(3,1fr); }
+.projects-grid { grid-template-columns:repeat(2,1fr); gap:2rem; }
+
+.ec-card, .project-card { 
+  border:1px solid var(--border); 
+  background:var(--card-bg); 
+  padding:2.2rem; 
+  position:relative; 
+  overflow:hidden; 
+  backdrop-filter:blur(10px); 
+  transition:all .4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+}
+.ec-card:hover, .project-card:hover { 
+  border-color:var(--heading); 
+  transform: translateY(-8px);
+  box-shadow: var(--shadow);
+  background: rgba(255, 255, 255, 0.7);
+}
+.ec-card > canvas, .project-card > canvas { position:absolute; inset:0; pointer-events:none; z-index:10; opacity:0; transition:opacity .3s; }
+.ec-card:hover > canvas, .project-card:hover > canvas { opacity:1; }
+
+.ec-title, .project-title { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:.4rem; color:var(--heading); }
+.ec-role, .project-type { font-family:'Times New Roman',Times,serif; font-size:.9rem; font-weight:600; color:var(--subtext); margin-bottom:1rem; }
+.project-type { display:flex; align-items:center; gap:.6rem; }
+.project-type::before { content:''; width:14px; height:1px; background:var(--subtext); }
+ 
+/* LINKS */
+.project-link { display:flex; align-items:center; gap:.8rem; padding:.7rem 1rem; border:1px solid var(--border); background:rgba(255,255,255,0.4); text-decoration:none; transition:all .3s; margin-top:.5rem; }
+.project-link:hover { border-color:var(--heading); background:rgba(255,255,255,0.8); }
+.project-link-icon { width:36px; height:36px; flex-shrink:0; border:1px solid var(--border); background:var(--card-bg); display:flex; align-items:center; justify-content:center; font-size:.9rem; transition:border-color .3s; }
+.project-link-label { font-family:'Times New Roman',Times,serif; font-size:.9rem; font-weight:600; color:var(--heading); display:block; }
+.project-link-arrow { font-family:'Times New Roman',Times,serif; font-size:1.2rem; color:var(--subtext); transition:all .3s; margin-left:auto; }
+.project-link:hover .project-link-arrow { color:var(--heading); transform:translateX(4px); }
+ 
+/* CONTACT */
+#contact { padding:6rem 4rem; display:flex; flex-direction:column; align-items:center; text-align:center; position: relative; }
+.contact-socials { display:flex; gap:2.5rem; margin-top:2rem; }
+.contact-socials a { font-family:'Times New Roman',Times,serif; font-size:.95rem; letter-spacing:.05em; color:var(--subtext); text-decoration:none; transition:color .3s; }
+.contact-socials a:hover { color:var(--heading); }
+ 
+footer { padding:3rem 4rem; border-top:1px solid var(--border); display:flex; justify-content:center; align-items:center; background: rgba(224, 242, 254, 0.4); }
+.footer-copy { font-family:'Times New Roman',Times,serif; font-size:.9rem; color:var(--subtext); }
+ 
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border); }
+ 
+@media(max-width:900px){
+  nav { padding:1.5rem 2rem; }
+  section { padding:3rem 2rem; }
+  #about { padding:8rem 2rem 4rem; }
+  .ec-grid { grid-template-columns:1fr 1fr; }
+  .projects-grid { grid-template-columns:1fr; }
+}
+@media(max-width:600px){
+  .ec-grid { grid-template-columns:1fr; }
+  .nav-links { gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="mouse-glow"></div>
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
+ 
+<nav>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#extracurriculars">Activities</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+ 
+<div class="page-wrap">
+ 
+<section id="about">
+  <div class="about-container">
+    <div class="name-card">
+      <h3>Kimli Nguyen</h3>
+    </div>
+    <div class="profile-frame"><img src="pictures/pfp.jpg" alt="Kimli Nguyen"></div>
+    <p class="about-text">Senior student interested in finance, economics, technology and corporate law. I enjoy networking, case competitions, and exploring the city.</p>
+  </div>
+</section>
+ 
+<section id="experience">
+  <h2 class="section-title">Work <em>Experience</em></h2>
+  <div class="timeline">
+ 
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="logo-box"><img src="pictures/hch.jpg" alt="HCH"></div>
+        <div class="exp-title-col">
+          <h3 class="exp-role">Analyst Intern</h3>
+          <p class="exp-company">Holland Christian Homes</p>
+          <p class="exp-date">Jun 2025 — Aug 2025</p>
+        </div>
+      </div>
+      <p class="exp-desc">Tracing discrepancies with financial data while automating key processes. Increased workflow productivity by <strong>up to 50%.</strong></p>
+    </div>
+ 
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="logo-box"><img src="pictures/nhi.jpg" alt="An Nhi"></div>
+        <div class="exp-title-col">
+          <h3 class="exp-role">Business Owner</h3>
+          <p class="exp-company">An Nhi</p>
+          <p class="exp-date">Jun 2024 — Present</p>
+        </div>
+      </div>
+      <p class="exp-desc">Sourcing and monetizing high-demand gaming resources targeting gamers in Vietnam. Acquired <strong>150+</strong> recurring clients.</p>
+    </div>
+ 
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="logo-box"><img src="pictures/lovisa.jpg" alt="Lovisa"></div>
+        <div class="exp-title-col">
+          <h3 class="exp-role">Stylist & Sales Associate</h3>
+          <p class="exp-company">Lovisa</p>
+          <p class="exp-date">Jun 2023 — Aug 2024</p>
+        </div>
+      </div>
+      <p class="exp-desc">Tailoring service and recommendations based on customer cues and behavioural insights. Averaged <strong>85%</strong> in mystery shop scores.</p>
+    </div>
+ 
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="logo-box"><img src="pictures/mcdonalds.jpg" alt="McDonald's"></div>
+        <div class="exp-title-col">
+          <h3 class="exp-role">Team Leader</h3>
+          <p class="exp-company">McDonald's</p>
+          <p class="exp-date">Mar 2022 — Aug 2025</p>
+        </div>
+      </div>
+      <p class="exp-desc">Customizing team workflows to match customer traffic and service expectations. Specialized in Drive Thru Presenting and ranked average <strong>1–4th among 32</strong> stores.</p>
+    </div>
+ 
+  </div>
+</section>
+ 
+<section id="extracurriculars">
+  <h2 class="section-title">Extra<em>curriculars</em></h2>
+  <div class="ec-grid">
+ 
+    <div class="ec-card"><canvas></canvas>
+      <div class="logo-box" style="margin-bottom:1.2rem"><img src="pictures/discoveryou.jpg" alt="Discover You"></div>
+      <h3 class="ec-title">Discover You</h3>
+      <p class="ec-role">Content Creator</p>
+      <p class="ec-desc">(In progress)</p>
+    </div>
+ 
+    <div class="ec-card"><canvas></canvas>
+      <div class="logo-box" style="margin-bottom:1.2rem"><img src="pictures/ellehacks.jpg" alt="Ellehacks"></div>
+      <h3 class="ec-title">Ellehacks</h3>
+      <p class="ec-role">Marketing Executive</p>
+      <p class="ec-desc">Generated <strong>100K+</strong> video views and increased Instagram reach by <strong>up to 300%</strong> for Ellehacks 10th anniversary.</p>
+    </div>
+ 
+    <div class="ec-card"><canvas></canvas>
+      <div class="logo-box" style="margin-bottom:1.2rem"><img src="pictures/ctrlhackdel.jpg" alt="CTRL+HACK+DEL"></div>
+      <h3 class="ec-title">CTRL+HACK+DEL</h3>
+      <p class="ec-role">Finance & Sponsorships Director</p>
+      <p class="ec-desc">Negotiated with 1,000+ potential partners and raised money for CTRL+HACK+DEL's <strong>1st and 2nd</strong> iteration.</p>
+    </div>
+ 
+    <div class="ec-card"><canvas></canvas>
+      <div class="logo-box" style="margin-bottom:1.2rem"><img src="pictures/unicef.jpg" alt="UNICEF"></div>
+      <h3 class="ec-title">UNICEF at York University</h3>
+      <p class="ec-role">Finance Director</p>
+      <p class="ec-desc">Spearheaded budgets and reimbursements using Excel across all UNICEF events ranging from <strong>20–60</strong> participants.</p>
+    </div>
+ 
+    <div class="ec-card"><canvas></canvas>
+      <div class="logo-box" style="margin-bottom:1.2rem"><img src="pictures/swsa.jpg" alt="SWSA"></div>
+      <h3 class="ec-title">Social Work Students Association</h3>
+      <p class="ec-role">Events Executive</p>
+      <p class="ec-desc">Organized logistics, outreach to speakers/sponsors, and budgeting for workshops, panels, and artistic events. Increased participant turnout rate by <strong>350%.</strong></p>
+    </div>
+ 
+    <div class="ec-card"><canvas></canvas>
+      <div class="logo-box" style="margin-bottom:1.2rem"><img src="pictures/ellehacks.jpg" alt="Ellehacks"></div>
+      <h3 class="ec-title">Ellehacks</h3>
+      <p class="ec-role">Logistics Executive</p>
+      <p class="ec-desc">Scheduling & Events 2024–25 Team.</p>
+    </div>
+ 
+  </div>
+</section>
+ 
+<section id="projects">
+  <h2 class="section-title">Projects & <em>Case Competitions</em></h2>
+  <div class="projects-grid">
+ 
+    <div class="project-card"><canvas></canvas>
+      <p class="project-type">Case Competition</p>
+      <h3 class="project-title">Policy Case Competition 2026</h3>
+      <p class="project-desc">Prepared a briefing note and presentation suggesting solutions to the use of AI in municipalities for the Ministry of Municipal Affairs & Housing Ontario.</p>
+      <p class="project-outcome">✦ Delegate · 2026</p>
+      <a href="files/pcc2026.pdf" class="project-link">
+        <div class="project-link-icon">📊</div>
+        <div><span class="project-link-label">View Presentation</span><span class="project-link-sub">Canva (Tools: Excel, for appendix)</span></div>
+        <span class="project-link-arrow">→</span>
+      </a>
+    </div>
+ 
+    <div class="project-card"><canvas></canvas>
+      <p class="project-type">Case Competition</p>
+      <h3 class="project-title">EDA × NEXT Canada Marketing Strategies Case Competition</h3>
+      <p class="project-desc">Developed a scalable branding and promotion strategy for The Green Collection's new line launch: Verde Living, focusing on trust and accessibility.</p>
+      <p class="project-outcome">🏆 3rd Place Overall · 2025</p>
+      <a href="files/edamss2025.pdf" class="project-link">
+        <div class="project-link-icon">📊</div>
+        <div><span class="project-link-label">View Presentation</span><span class="project-link-sub">Canva</span></div>
+        <span class="project-link-arrow">→</span>
+      </a>
+    </div>
+ 
+    <div class="project-card"><canvas></canvas>
+      <p class="project-type">Case Competition</p>
+      <h3 class="project-title">BMO National Private Wealth Case Competition 2025</h3>
+      <p class="project-desc">Collaborated in a team of 4 to build a solution for Next-Gen professionals to manage their wealth with BMO: outlined a 24-month execution plan, budget allocation, revenue projections, and long-term outlook.</p>
+      <p class="project-outcome">🏆 Top 24 out of 500+ Teams (Semi-Finalist) · 2025</p>
+      <a href="files/bmo2025.pdf" class="project-link">
+        <div class="project-link-icon">📊</div>
+        <div><span class="project-link-label">View Presentation</span><span class="project-link-sub">Canva</span></div>
+        <span class="project-link-arrow">→</span>
+      </a>
+    </div>
+ 
+    <div class="project-card"><canvas></canvas>
+      <p class="project-type">Project</p>
+      <h3 class="project-title">Estimating Ontario's Potential Output Growth</h3>
+      <p class="project-desc">Formed a projection for Ontario's potential output growth from 2026 to 2035. Estimated that labour was the main contribution to growth, whereas capital and TFP remains stable.</p>
+      <p class="project-outcome">✦ Tools: R, Excel · 2025</p>
+      <a href="files/4089.pdf" class="project-link">
+        <div class="project-link-icon">📈</div>
+        <div><span class="project-link-label">View Report</span><span class="project-link-sub">Google Docs (tools: R, Excel)</span></div>
+        <span class="project-link-arrow">→</span>
+      </a>
+    </div>
+ 
+  </div>
+</section>
+ 
+</div><!-- end page-wrap -->
+ 
+<section id="contact">
+  <div class="shine-wrap">
+    <canvas></canvas>
+    <a href="#about" class="back-top-btn">Back to Top</a>
+  </div>
+  <div class="contact-socials">
+    <a href="https://www.linkedin.com/in/kimlinguyen/" target="_blank">LinkedIn</a>
+    <a href="https://kimliberlyn.com" target="_blank">Personal Website</a>
+    <a href="#">Resume</a>
+  </div>
+</section>
+ 
+<footer>
+  <span class="footer-copy">© 2026 Kimli Nguyen</span>
+</footer>
+ 
+<script>
+// Mouse Glow Effect
+const glow = document.getElementById('mouse-glow');
+window.addEventListener('mousemove', (e) => {
+  glow.style.opacity = '1';
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+window.addEventListener('mouseleave', () => glow.style.opacity = '0');
+
+// Scroll-based nav highlight
+const navLinks = document.querySelectorAll('.nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const navH = () => document.querySelector('nav').offsetHeight;
+ 
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - navH() - 60) cur = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+ 
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (!t) return;
+    e.preventDefault();
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - navH() - 20, behavior: 'smooth' });
+  });
+});
+ 
+// Border shine effect on hover
+function initShine(container) {
+  const cv = container.querySelector(':scope > canvas');
+  if (!cv) return;
+  let angle = 0, hovered = false, raf = null;
+  function resize() { cv.width = container.offsetWidth; cv.height = container.offsetHeight; }
+  resize();
+  new ResizeObserver(resize).observe(container);
+  function draw() {
+    const w = cv.width, h = cv.height, c = cv.getContext('2d');
+    c.clearRect(0, 0, w, h);
+    const perim = 2 * (w + h);
+    const dist = (angle / 360) * perim;
+    const spotLen = perim * 0.18;
+    function toXY(d) {
+      let dd = ((d % perim) + perim) % perim;
+      if (dd < w) return [dd, 0];
+      dd -= w; if (dd < h) return [w, dd];
+      dd -= h; if (dd < w) return [w - dd, h];
+      dd -= w; return [0, h - dd];
+    }
+    for (let i = 0; i < 60; i++) {
+      const t = i / 60;
+      const [x1, y1] = toXY(dist - spotLen * .5 + spotLen * t);
+      const [x2, y2] = toXY(dist - spotLen * .5 + spotLen * (t + 1/60));
+      const a = (1 - Math.abs(t - .5) * 2 * (Math.abs(t - .5) * 2)) * .9;
+      c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2);
+      c.strokeStyle = `rgba(15, 23, 42, ${a * 0.5})`; c.lineWidth = 1.5; c.stroke();
+    }
+    const [cx, cy] = toXY(dist);
+    const grd = c.createRadialGradient(cx, cy, 0, cx, cy, 10);
+    grd.addColorStop(0, 'rgba(15, 23, 42, 0.15)');
+    grd.addColorStop(1, 'rgba(15, 23, 42, 0)');
+    c.fillStyle = grd; c.beginPath(); c.arc(cx, cy, 10, 0, Math.PI * 2); c.fill();
+  }
+  function loop() { angle = (angle + 1.9) % 360; draw(); if (hovered) raf = requestAnimationFrame(loop); }
+  container.addEventListener('mouseenter', () => { hovered = true; if (!raf) raf = requestAnimationFrame(loop); });
+  container.addEventListener('mouseleave', () => {
+    hovered = false; raf = null;
+    cv.getContext('2d').clearRect(0, 0, cv.width, cv.height);
+  });
+}
+document.querySelectorAll('.shine-wrap, .ec-card, .project-card').forEach(initShine);
+</script>
+</body>
+</html>
