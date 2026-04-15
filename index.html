@@ -188,7 +188,7 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
   /* Slides Scale Logic: Aggressive scaling (4x virtual width) to prevent 
      zoomed mobile browser behavior and show clean full-frame slides */
   .preview-container.is-slides iframe {
-    width: 1100%; /* 1 / 0.25 = 4.0 */
+    width: 110%; /* 1 / 0.25 = 4.0 */
     height: 100vh; 
     transform: scale(0.9); 
     transform-origin: top left;
@@ -198,9 +198,9 @@ footer { padding:3rem; border-top:1px solid var(--border); text-align:center; fo
   
   /* Doc Scale Logic (Project 6): Similar aggressive scaling for text heavy doc */
   .preview-container.is-doc iframe {
-    width: 110%; /* 1 / 0.25 = 4.0 */
+    width: 400%; /* 1 / 0.25 = 4.0 */
     height: 100vh; 
-    transform: scale(0.9); 
+    transform: scale(0.25); 
     transform-origin: top left;
     border: none;
     pointer-events: none; /* User scrolls past the box, not internal content */
